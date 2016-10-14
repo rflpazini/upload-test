@@ -1,0 +1,25 @@
+{
+  "name": "upload-test",
+  "authors": [
+    "Rafael Pazini <rflpazini@gmail.com>"
+  ],
+  "description": "Testing video upload with an Angular application",
+  "main": "index.html",
+  "keywords": [
+    "wistia",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8",
+    "bootstrap": "^3.3.7"
+  }
+}

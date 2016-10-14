@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="upload-test">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wistia - Video Upload</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div id="main" class="container">
+        <header class="page-header">
+            <h1>Upload your video to Wistia</h1>
+        </header>
+        <section class="testing">
+            <div>
+                <p>Please enter your name: </p>
+                <input type="text" placeholder="i.e. John Doe" ng-model="userName">
+            </div>
+            <div ng-hide="!userName">
+                <h2>Hello {{userName}}</h2>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="container">
+            <hr>
+            <h4>
+    			<small>Made with <span class="glyphicon glyphicon-heart"></span> and Angular.js</small>
+    		</h4>
+        </div>
+    </footer>
+    <!-- JS -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="controllers/mainController.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

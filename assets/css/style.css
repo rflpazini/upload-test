@@ -1,0 +1,17 @@
+html,
+body {
+    height: 100%;
+}
+
+#main {
+    min-height: 90%;
+}
+
+footer {
+    text-align: center;
+    position: relative;
+    margin-top: -30px;
+    /* negative value of footer height */
+    height: 100px;
+    clear: both;
+}
