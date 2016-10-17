@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="upload-test">
+<html lang="en" ng-app="upload-wistia">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Wistia - Video Upload</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -11,15 +12,50 @@
 <body>
     <div id="main" class="container">
         <header class="page-header">
-            <h1>Upload your video to Wistia</h1>
+            <h1>Wistia uploader <small>rflpazini channel</small></h1>
         </header>
-        <section class="testing">
-            <div>
-                <p>Please enter your name: </p>
-                <input type="text" placeholder="i.e. John Doe" ng-model="userName">
-            </div>
-            <div ng-hide="!userName">
-                <h2>Hello {{userName}}</h2>
+        <section id="upload" class="row">
+            <div class="col-md-12 text-center">
+                <form data-file-upload="options" method="POST" ng-controller="UploadController" enctype="multipart/form-data">
+                    <span class="btn btn-primary btn-lg addfile" ng-class="{disabled: disabled}">
+	                    <i class="glyphicon glyphicon-plus"></i>
+	                    <span>Select new video</span>
+                    <input type="file" name="files[]" ng-disabled="disabled">
+                    </span>
+                    <button class="btn btn-default btn-lg" type="submit" ng-click="submit()">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>Upload your video
+                    </button>
+                    <div class="fade" data-ng-class="{in: active()}">
+                        <div class="progress progress-striped active" data-file-upload-progress="progress()">
+                            <div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div>
+                        </div>
+                        <div class="progress-extended">&nbsp;</div>
+                    </div>
+                    <section class="video-selected">
+                        <div class="row" ng-repeat="file in queue" ng-class="{'processing': file.$processing()}">
+                            <div ng-switch data-on="!!file.thumbnailUrl">
+                                <div class="preview" ng-switch-when="true">
+                                    <a ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img ng-src="{{file.thumbnailUrl}}" alt=""></a>
+                                </div>
+                                <div class="preview" ng-switch-default data-file-upload-preview="file"></div>
+                            </div>
+                            <div>
+                                <p class="name" ng-switch data-on="!!file.url">
+                                    <span ng-switch-when="true" ng-switch data-on="!!file.thumbnailUrl">
+	                            		<a ng-switch-when="true" ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
+	                            		<a ng-switch-default ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                        			</span>
+                                    <span ng-switch-default>{{file.name}}</span>
+                                </p>
+                                <strong ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+                            </div>
+                            <div>
+                                <p class="size">{{file.size | formatFileSize}}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- The table listing the files available for upload/download -->
+                </form>
             </div>
         </section>
     </div>
@@ -27,15 +63,26 @@
         <div class="container">
             <hr>
             <h4>
-    			<small>Made with <span class="glyphicon glyphicon-heart"></span> and Angular.js</small>
+    			<small>Made with <span class="glyphicon glyphicon-heart red"></span> and <a href="https://angularjs.org">AngularJS</a></small>
     		</h4>
         </div>
     </footer>
     <!-- JS -->
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="controllers/mainController.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/vendor/jquery.ui.widget.js"></script>
+    <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <script src="assets/js/jquery.iframe-transport.js"></script>
+    <script src="assets/js/jquery.fileupload.js"></script>
+    <script src="assets/js/jquery.fileupload-process.js"></script>
+    <script src="assets/js/jquery.fileupload-image.js"></script>
+    <script src="assets/js/jquery.fileupload-audio.js"></script>
+    <script src="assets/js/jquery.fileupload-video.js"></script>
+    <script src="assets/js/jquery.fileupload-validate.js"></script>
+    <script src="assets/js/jquery.fileupload-angular.js"></script>
+    <script src="controllers/mainController.js"></script>
 </body>
 
 </html>
