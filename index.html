@@ -7,54 +7,83 @@
     <title>Wistia - Video Upload</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://use.fontawesome.com/86577bc999.js"></script>
 </head>
 
 <body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="assets/img/wistia-logo-flags.png">
+                    <b>WISTIA</b> uploader
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">View on GitHub <span class="sr-only">(current)</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div id="main" class="container">
-        <header class="page-header">
-            <h1>Wistia uploader <small>rflpazini channel</small></h1>
-        </header>
         <section id="upload" class="row">
             <div class="col-md-12 text-center">
-                <form data-file-upload="options" method="POST" ng-controller="UploadController" enctype="multipart/form-data">
-                    <span class="btn btn-primary btn-lg addfile" ng-class="{disabled: disabled}">
-	                    <i class="glyphicon glyphicon-plus"></i>
-	                    <span>Select new video</span>
-                    <input type="file" name="files[]" ng-disabled="disabled">
-                    </span>
-                    <button class="btn btn-default btn-lg" type="submit" ng-click="submit()">
-                        <span class="glyphicon glyphicon-cloud-upload"></span>Upload your video
-                    </button>
-                    <div class="fade" data-ng-class="{in: active()}">
-                        <div class="progress progress-striped active" data-file-upload-progress="progress()">
-                            <div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div>
-                        </div>
-                        <div class="progress-extended">&nbsp;</div>
-                    </div>
-                    <section class="video-selected">
-                        <div class="row" ng-repeat="file in queue" ng-class="{'processing': file.$processing()}">
-                            <div ng-switch data-on="!!file.thumbnailUrl">
-                                <div class="preview" ng-switch-when="true">
-                                    <a ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img ng-src="{{file.thumbnailUrl}}" alt=""></a>
+                <form data-file-upload="options" method="POST" ng-controller="UploadController" enctype="multipart/form-data" class="form-view">
+                    <div id="form">
+                        <header class="form-header" ng-hide="added">
+                            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                            <p class="lead">Upload your video to WISTIA</p>
+                        </header>
+                        <section class="video-selected load">
+                            <div class="row" ng-repeat="file in queue" ng-class="{'processing': file.$processing()}">
+                                <div ng-switch data-on="!!file.thumbnailUrl">
+                                    <i class="fa fa-times" aria-hidden="true" ng-click="cancel()"></i>
+                                    <div class="preview" ng-switch-when="true">
+                                        <a ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img ng-src="{{file.thumbnailUrl}}" alt=""></a>
+                                    </div>
+                                    <div class="preview" ng-switch-default data-file-upload-preview="file"></div>
                                 </div>
-                                <div class="preview" ng-switch-default data-file-upload-preview="file"></div>
-                            </div>
-                            <div>
-                                <p class="name" ng-switch data-on="!!file.url">
-                                    <span ng-switch-when="true" ng-switch data-on="!!file.thumbnailUrl">
+                                <div>
+                                    <p class="name" ng-switch data-on="!!file.url">
+                                        <span ng-switch-when="true" ng-switch data-on="!!file.thumbnailUrl">
 	                            		<a ng-switch-when="true" ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
 	                            		<a ng-switch-default ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
                         			</span>
-                                    <span ng-switch-default>{{file.name}}</span>
-                                </p>
-                                <strong ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+                                        <span ng-switch-default><small>File name: </small>{{file.name}}</span>
+                                    </p>
+                                    <div ng-show="file.error" class="alert alert-danger absolute" role="alert">{{file.error}}</div>
+                                </div>
+                                <div>
+                                    <p class="size">{{file.size | formatFileSize}}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="size">{{file.size | formatFileSize}}</p>
+                        </section>
+                        <section>
+                            <span class="btn btn-primary btn-lg addfile" ng-class="{disabled: disabled}" ng-hide="added">
+	                    <i class="glyphicon glyphicon-plus"></i>
+	                    <span>Select new video</span>
+                            <input type="file" name="files[]" ng-disabled="disabled">
+                            </span>
+                            <button class="btn btn-default btn-lg" type="submit" ng-click="submit()" ng-show="added">
+                                <span class="glyphicon glyphicon-cloud-upload"></span>Upload your video
+                            </button>
+                            <div class="fade" data-ng-class="{in: active()}">
+                                <div class="progress progress-striped active" data-file-upload-progress="progress()">
+                                    <div class="progress-bar progress-bar-info" data-ng-style="{width: num + '%'}"></div>
+                                </div>
+                                <div class="progress-extended">&nbsp;</div>
                             </div>
-                        </div>
-                    </section>
-                    <!-- The table listing the files available for upload/download -->
+                        </section>
+                    </div>
+                    <iframe ng-show="showMovie" src="//fast.wistia.net/embed/iframe/v8fzo4q6da?videoFoam=true&playerColor=ff0000" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="640" height="360"></iframe>
+                    <script src="//fast.wistia.net/assets/external/E-v1.js" async></script>
                 </form>
             </div>
         </section>
@@ -63,7 +92,7 @@
         <div class="container">
             <hr>
             <h4>
-    			<small>Made with <span class="glyphicon glyphicon-heart red"></span> and <a href="https://angularjs.org">AngularJS</a></small>
+    			<small>Made with <span class="glyphicon glyphicon-heart red"></span>, <a href="http://getbootstrap.com/">Bootstrap</a> and <a href="https://angularjs.org">AngularJS</a></small>
     		</h4>
         </div>
     </footer>

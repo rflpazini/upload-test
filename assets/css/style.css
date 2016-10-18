@@ -8,46 +8,81 @@ body {
 }
 
 section {
-    padding: 35px 0;
+    padding: 15px 0;
 }
 
-.box {}
+.load {
+	display: none;
+}
 
 .btn>span {
     padding-right: 5px;
 }
 
 .addfile {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
 }
 
 .addfile input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  opacity: 0;
-  -ms-filter: 'alpha(opacity=0)';
-  font-size: 200px !important;
-  direction: ltr;
-  cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+    font-size: 200px !important;
+    direction: ltr;
+    cursor: pointer;
+}
+
+.absolute {
+	position: absolute;
+	top: 0px;
+	width: 100% !important;
+}
+
+.form-view {
+	padding-top: 15%;
+}
+
+.form-header {
+	padding-bottom: 25px;
+}
+
+.form-header i {
+	font-size: 6.8em;
+
 }
 
 .video-selected video {
-	max-width: 500px !important;
+    max-width: 500px !important;
+}
+
+.video-selected i {
+	position: relative;
+	left: 180px;
+	top: -15px 
+}
+
+.preview video {
+    max-width: 300px !important
+}
+
+.navbar-brand img {
+    max-width: 40px;
+    padding-right: 10px;
+    float: left;
 }
 
 .progress {
-	margin: 10px 0;
+    margin: 10px 0;
 }
+
 .progress .progress-extended {
-	margin-top: 5px;
+    margin-top: 5px;
 }
-
-
-/* -- Create box to video uploads -- */
 
 
 /* -- Configuration of Footer -- */
@@ -59,7 +94,7 @@ section {
 footer {
     text-align: center;
     position: relative;
-    margin-top: -10px;
+    margin-top: -90px;
     height: 30px;
     clear: both;
 }

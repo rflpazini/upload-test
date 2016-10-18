@@ -1,6 +1,5 @@
 (function() {
-    var isLocal = window.location.hostname === 'localhost',
-        url = isLocal ? 'https://upload.wistia.com/?api_password=cf9cb9f3870df3d962510e1edfd486cafd918fdaaaae1435d71537de5091814e' : '404.html';
+    var url = 'https://upload.wistia.com/?api_password=cf9cb9f3870df3d962510e1edfd486cafd918fdaaaae1435d71537de5091814e';
 
     var app = angular.module('upload-wistia', ['blueimp.fileupload'])
         .config([
@@ -15,6 +14,10 @@
 
     app.controller('UploadController', ['$scope', '$http', '$filter', '$window',
         function($scope, $http) {
+            $scope.added = false;
+            $scope.showMovie = false;
+            $scope.fileID = 0;
+
             $scope.options = {
                 url: url
             };
@@ -22,24 +25,20 @@
             $scope.loadingFiles = true;
             $scope.$on('fileuploaddone', function(event, fileResult) {
                 console.log("Uploaded - hashed_id:" + fileResult.result.hashed_id);
+                $("form").addClass("load");
+                fileID = fileResult.result.hashed_id;
+                $scope.showMovie = true;
             });
 
-            $http.post(url)
-                .then(
-                    function(response) {
-                        $scope.loadingFiles = false;
-                        $scope.queue = response.data.files || [];
+            $scope.$on('fileuploadadd', function(event, argument) {
+                console.log("ADDED - " + argument);
+                $("section").removeClass("load");
+                $scope.added = true;
+            });
 
-                    },
-                    function() {
-                        $scope.loadingFiles = false;
-                    }
-                );
+            $scope.$on('fileuploadfail', function(eventm, argument) {
+            	$scope.added = false;
+            });
         }
     ]);
-
-    app.controller('DeleteFileController', ['', function() {
-
-    }]);
-
 })();
