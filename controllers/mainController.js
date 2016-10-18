@@ -1,5 +1,7 @@
 (function() {
-    var url = 'https://upload.wistia.com/?api_password=cf9cb9f3870df3d962510e1edfd486cafd918fdaaaae1435d71537de5091814e';
+    var url = 'https://upload.wistia.com/',
+    	apiPasswordParam = '?api_password=',
+    	token = 'f3f4b2f8b313c1de29f00263c58940c32f2c4952072e38f8d53aa920be4b1023';
 
     var app = angular.module('upload-wistia', ['blueimp.fileupload'])
         .config([
@@ -18,7 +20,7 @@
             $scope.fileID = "";
 
             $scope.options = {
-                url: url
+                url: url + apiPasswordParam + token
             };
 
             $scope.loadingFiles = true;
