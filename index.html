@@ -27,7 +27,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">View on GitHub <span class="sr-only">(current)</span></a></li>
+                    <li><a href="https://github.com/rflpazini/upload-test">View on GitHub <span class="sr-only">(current)</span></a></li>
                 </ul>
             </div>
         </div>
@@ -82,8 +82,13 @@
                             </div>
                         </section>
                     </div>
-                    <iframe ng-show="showMovie" src="//fast.wistia.net/embed/iframe/v8fzo4q6da?videoFoam=true&playerColor=ff0000" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="640" height="360"></iframe>
-                    <script src="//fast.wistia.net/assets/external/E-v1.js" async></script>
+                    <!-- Wistia Embed video -->
+                    <script src="//fast.wistia.com/assets/external/E-v1.js" async></script>
+                    <div class="wistia_responsive_padding" ng-if="fileID" style="padding:56.25% 0 0 0;position:relative;">
+                        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                            <div class="{{'wistia_embed wistia_async_'+ fileID +' videoFoam=true'}}" style="height:100%;width:100%">&nbsp;</div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>

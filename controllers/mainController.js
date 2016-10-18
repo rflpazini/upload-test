@@ -15,8 +15,7 @@
     app.controller('UploadController', ['$scope', '$http', '$filter', '$window',
         function($scope, $http) {
             $scope.added = false;
-            $scope.showMovie = false;
-            $scope.fileID = 0;
+            $scope.fileID = "";
 
             $scope.options = {
                 url: url
@@ -25,9 +24,8 @@
             $scope.loadingFiles = true;
             $scope.$on('fileuploaddone', function(event, fileResult) {
                 console.log("Uploaded - hashed_id:" + fileResult.result.hashed_id);
-                $("form").addClass("load");
-                fileID = fileResult.result.hashed_id;
-                $scope.showMovie = true;
+                $("#form").addClass("load");
+                $scope.fileID = fileResult.result.hashed_id;
             });
 
             $scope.$on('fileuploadadd', function(event, argument) {

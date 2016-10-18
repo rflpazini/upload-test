@@ -84,6 +84,11 @@ section {
     margin-top: 5px;
 }
 
+.wistia_embed {
+    position: relative;
+    margin: -8% auto;
+}
+
 
 /* -- Configuration of Footer -- */
 
