@@ -69,7 +69,7 @@
                             <span class="btn btn-primary btn-lg addfile" ng-class="{disabled: disabled}" ng-hide="added">
 	                    <i class="glyphicon glyphicon-plus"></i>
 	                    <span>Select new video</span>
-                            <input type="file" name="files[]" ng-disabled="disabled">
+                            <input type="file" accept="video/*" name="files[]" ng-disabled="disabled">
                             </span>
                             <button class="btn btn-default btn-lg" type="submit" ng-click="submit()" ng-show="added">
                                 <span class="glyphicon glyphicon-cloud-upload"></span>Upload your video
